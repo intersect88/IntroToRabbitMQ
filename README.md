@@ -1,7 +1,7 @@
 # IntroToRabbitMQ
 
-Un sistema composto da più software che comunicano tra loro tramite messaggio. in particolare lo scambio di messaggi avviene attraverso un message broker. Un message broker è : ,,,,,. 
-In particolare all'interno del progetto viene utilizzato rabbitmq. Rabbit è come abibimao detot un groker diu messaggi open source che supporta diversi protocolli e offre diverse features. 
+Un sistema composto da più software che comunicano tra loro tramite messaggi. In particolare lo scambio di messaggi avviene attraverso un **Message Broker**. Un message broker è : . 
+In particolare all'interno del progetto che sto seguendo è stato scelto di utilizzare RabbitMQ. RabbitMQ è un messagging broker open source che supporta diversi protocolli e offre diverse features. 
 Il protocollo di base è ampq che prevede di base 3 entità: 
     - Un publisher cioè l'applicazione che produce il messaggio
     - Un Message Broker che prende il messaggio e lo instrada verso un consumer 
