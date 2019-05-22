@@ -26,4 +26,81 @@ docker run -d --hostname my-rabbit --name rabbit1 rabbitmq:3-management
 come possiamo notare l'immagine è quella di management che ci consentirà di avere un'interfaccia web, raggiungibile all'indirizzo dove possiamo monitorare le diverse entity di rabbit.
 ![#](/image#.png)
 
-Per mostrare i concetti esposti in precedenza ho utilizzato un esempio semplice presente sul sito di rabbit. Ho creato una soluzione con due progetti. Il primo farà le veci del produttore del messaggio l'altro invece lo andrà a consumare. Analizziamo il *Sender* 
+Per mostrare i concetti esposti in precedenza ho utilizzato un esempio semplice presente sul sito di rabbit. Ho creato una soluzione con due progetti. Il primo farà le veci del produttore del messaggio l'altro invece lo andrà a consumare. Analizziamo il *Sender* ovvero l'applicazione che crea il messaggio.
+
+```cs{.line-numbers}
+    class Sender
+    {
+        static void Main(string[] args)
+        {
+            var factory = new ConnectionFactory { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queue: "hello",
+                                         durable: false,
+                                         exclusive: false,
+                                         autoDelete: false,
+                                         arguments: null);
+                    var message = "Hello World";
+                    var body = Encoding.UTF8.GetBytes(message);
+                    channel.BasicPublish(exchange: "",
+                                         routingKey: "hello",
+                                         basicProperties: null,
+                                         body: body);
+                    Console.WriteLine("[x] Sent {0}", message);
+                }
+
+                Console.WriteLine("Press [enter] to exit.");
+                Console.ReadLine();
+            }
+
+
+
+        }
+    }
+```
+```cs{.line-numbers}
+    class Receiver
+    {
+        static void Main(string[] args)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(queue: "hello",
+                                         durable: false,
+                                         exclusive: false,
+                                         autoDelete: false,
+                                         arguments: null);
+                    var consumer = new EventingBasicConsumer(channel);
+                    //consumer.Received += (model,) => { };
+                    consumer.Received += (model, ea) =>
+                    {
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        Console.WriteLine("[x] Received {0}", message);
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                    };
+
+                    channel.BasicConsume(queue: "hello",
+                                         autoAck: false,
+                                         consumer: consumer);
+                    Console.WriteLine("Press [enter] to exit.");
+                    Console.ReadLine();
+                }
+
+            }
+        }
+    }
+```
+
+analisi del codice e spiegazione delle varie configurazioni. Commento delle web interface. 
+
+Perchè usare rabbitmq per lo scambio di info tra applicazioni.
+
+configurazione di rabbit con high availability.
+
