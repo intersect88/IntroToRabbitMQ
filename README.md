@@ -11,13 +11,13 @@ Questo pattern prevede che un'applicazione possa comunicare in maniera _asincron
 
 Per il progetto viene utilizzato **[RabbitMQ](https://www.rabbitmq.com/)**, un messagging broker open source che supporta diversi protocolli e che offre diverse features.
 
-![2](/image2.gif
+![2](/image2.gif)
  
 Di base RabbitMQ implementa il protocolo **_AMQP.0-9-1_**(Advanced Message Queuing Protocol) il quale prevede che i messaggi siano pubblicati verso delle entità di AMQP dette **_Exchanges_** il cui ruolo è quello di distribuire, secondo determinate regole dette **_bindigns_**, i messaggi ricevuti ad altre entità del protocollo ovvero le **_Queue_** a cui può sottoscriversi uno o più consumers.
 
 ![4](/image3.png)
 
-L'algoritmo di routing con il quale possono essere instradati i messaggi verso le code dipende dal tipo di exchange e in AMQP ne sono definiti oltre quello di _default_ e presentano le seguenti caratteristiche:
+L'algoritmo di routing con il quale possono essere instradati i messaggi verso le code dipende dal tipo di exchange e in AMQP ne sono definiti quattro oltre quello di _default_ e presentano le seguenti caratteristiche:
 
 - **Default**: Ha la peculiarità che ogni nuova coda creata è collegata automaticamente ad esso con una routing key uguale al nome della coda.
 - **Direct**: Ideale per l'instradamento unicast. La consegna dei messaggi è basata su una routing key.
