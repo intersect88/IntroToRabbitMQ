@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqGetStart1", "RabbitMqGetStart1\RabbitMqGetStart1.csproj", "{55D47239-C6ED-429B-BF1C-790B08088ED7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSolution", "RabbitMqGetStart1\DemoSolution.csproj", "{55D47239-C6ED-429B-BF1C-790B08088ED7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sender", "Sender\Sender.csproj", "{8D66B46C-767C-44AC-A97B-CDDEFC739852}"
 EndProject
