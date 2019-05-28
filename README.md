@@ -27,7 +27,7 @@ L'algoritmo di routing con il quale possono essere instradati i messaggi verso l
 
 Sia le code che gli exchange hanno proprietà per le quali possono sopravvivere al riavvio del broker e possono autocancellarsi rispettivamente in mancanza di consumer o di code associate. Le code inoltre possono essere esclusive cioè legate ad una sola connessione.
 
-Mettiamo in pratica in concetti espressi finora. Invece di installare RabbitMQ in locale ho utilizzato un _container_ Docker sia per una questione di praticità dovuta al fatto che l'immagine dockerizzata è già pronta all'uso sia per dare l'idea di utilizzare un broker istanziato su un'ambiente separato rispetto alle a. 
+Mettiamo in pratica in concetti espressi finora. Invece di installare RabbitMQ in locale ho utilizzato un _container_ Docker sia per una questione di praticità dovuta al fatto che l'immagine dockerizzata è già pronta all'uso sia per dare l'idea di utilizzare un broker istanziato su un'ambiente separato rispetto al publisher ed al subscriber che verranno definiti in seguito.
 Per la creazione lanciamo il comando seguente con cui specifichiamo l'hostname, il nome del container e l'immagine di RabbitMQ che vogliamo istanziare. 
 
 ```
