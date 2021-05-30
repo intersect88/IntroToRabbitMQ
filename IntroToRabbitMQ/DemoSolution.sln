@@ -1,8 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoSolution", "RabbitMqGetStart1\DemoSolution.csproj", "{55D47239-C6ED-429B-BF1C-790B08088ED7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sender", "Sender\Sender.csproj", "{8D66B46C-767C-44AC-A97B-CDDEFC739852}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Receiver", "Receiver\Receiver.csproj", "{3BA0A7DE-9996-4566-8997-B1E7B0A874F7}"
@@ -13,10 +11,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55D47239-C6ED-429B-BF1C-790B08088ED7}.Debug|x86.ActiveCfg = Debug|x86
-		{55D47239-C6ED-429B-BF1C-790B08088ED7}.Debug|x86.Build.0 = Debug|x86
-		{55D47239-C6ED-429B-BF1C-790B08088ED7}.Release|x86.ActiveCfg = Release|x86
-		{55D47239-C6ED-429B-BF1C-790B08088ED7}.Release|x86.Build.0 = Release|x86
 		{8D66B46C-767C-44AC-A97B-CDDEFC739852}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{8D66B46C-767C-44AC-A97B-CDDEFC739852}.Debug|x86.Build.0 = Debug|Any CPU
 		{8D66B46C-767C-44AC-A97B-CDDEFC739852}.Release|x86.ActiveCfg = Release|Any CPU
