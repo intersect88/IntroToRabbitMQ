@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using RabbitMQ.Client;
 using System.Text;
 using System.Threading;
 using Polly;
 using RabbitMQ.Client.Exceptions;
+using RabbitMQ.Client.Framing;
 
 namespace Sender
 {
@@ -13,7 +14,6 @@ namespace Sender
         public static void Main()
         {
             var factory = new ConnectionFactory() {HostName = "localhost"};
-            // Unhandled Exception: RabbitMQ.Client.Exceptions.BrokerUnreachableException: None of the specified endpoints were reachable
             var retryPolicy = Policy.Handle<AlreadyClosedException>()
                 .WaitAndRetry(5,
                     retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
@@ -21,7 +21,6 @@ namespace Sender
                     {
                         Console.WriteLine($"This is the {retryCount} try");
                     }
-                    // .Retry(3, onRetry: (exception, i) => 
                 );
 
             using (var connection = factory.CreateConnection())
@@ -29,7 +28,7 @@ namespace Sender
                 using (var channel = connection.CreateModel())
                 {
                     channel.QueueDeclare(queue: "QueueDemo",
-                        durable: false,
+                        durable: true,
                         exclusive: false,
                         autoDelete: false,
                         arguments: null);
@@ -42,7 +41,7 @@ namespace Sender
                         retryPolicy.Execute(() =>
                             PublishMessage(message, channel)
                         );
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                     }
                 }
             }
@@ -51,9 +50,9 @@ namespace Sender
             Console.ReadLine();
         }
 
-        private static void FillMessages(string[] arrayToFill)
+        private static void FillMessages(IList<string> arrayToFill)
         {
-            for (var j = 0; j < arrayToFill.Length; j++)
+            for (var j = 0; j < arrayToFill.Count; j++)
             {
                 arrayToFill[j] = $"Message {j}";
             }
@@ -64,7 +63,7 @@ namespace Sender
             var body = Encoding.UTF8.GetBytes(message);
             channel.BasicPublish(exchange: "",
                 routingKey: "QueueDemo",
-                basicProperties: null,
+                basicProperties: new BasicProperties{DeliveryMode = 2},
                 body: body);
             Console.WriteLine($"Sent {message}");
         }
